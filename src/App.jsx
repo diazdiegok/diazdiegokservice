@@ -54,7 +54,7 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/diazdiegokservice">
       <ToastProvider>
         <AuthProvider>
           <CartProvider>
