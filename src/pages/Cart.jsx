@@ -9,12 +9,81 @@ export default function Cart() {
 
     if (items.length === 0) {
         return (
-            <div className="container">
-                <div className="empty-state">
-                    <div className="empty-state-icon"><ShoppingBag size={36} /></div>
-                    <h2>Tu carrito está vacío</h2>
-                    <p>Agregá productos desde nuestro catálogo para empezar</p>
-                    <Link to="/catalogo" className="btn btn-primary">Ver Catálogo</Link>
+            <div className="container" style={{ paddingTop: '60px', paddingBottom: '80px' }}>
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    minHeight: '55vh',
+                    textAlign: 'center',
+                }}>
+                    <div style={{
+                        background: 'rgba(255,255,255,0.03)',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: '24px',
+                        padding: '60px 48px',
+                        maxWidth: '520px',
+                        width: '100%',
+                        boxShadow: '0 32px 80px rgba(0,0,0,0.4)',
+                        position: 'relative',
+                        overflow: 'hidden',
+                    }}>
+                        <div style={{
+                            position: 'absolute', top: '-60px', left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '300px', height: '300px',
+                            background: 'radial-gradient(circle, rgba(76,175,80,0.12) 0%, transparent 70%)',
+                            pointerEvents: 'none',
+                        }} />
+                        <div style={{
+                            width: '90px', height: '90px',
+                            background: 'linear-gradient(135deg, rgba(76,175,80,0.2), rgba(76,175,80,0.05))',
+                            borderRadius: '50%',
+                            display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            margin: '0 auto 28px',
+                            border: '2px solid rgba(76,175,80,0.3)',
+                            animation: 'float 3s ease-in-out infinite',
+                        }}>
+                            <ShoppingBag size={40} strokeWidth={1.5} style={{ color: 'var(--primary-400)' }} />
+                        </div>
+                        <h1 style={{
+                            fontSize: '1.8rem', fontWeight: 800,
+                            color: 'var(--text-primary)',
+                            marginBottom: '12px', letterSpacing: '-0.5px',
+                        }}>
+                            Tu carrito está vacío
+                        </h1>
+                        <p style={{
+                            color: 'var(--text-secondary)', fontSize: '1rem',
+                            lineHeight: 1.6, marginBottom: '36px', maxWidth: '360px', margin: '0 auto 36px',
+                        }}>
+                            Explorá nuestro catálogo y encontrá la tecnología que necesitás. ¡Tenemos las mejores marcas!
+                        </p>
+                        <Link to="/catalogo" className="btn btn-primary btn-lg" style={{ padding: '14px 40px', fontSize: '1rem' }}>
+                            <ShoppingCart size={20} /> Ver Catálogo
+                        </Link>
+                        <div style={{
+                            display: 'flex', gap: '12px', marginTop: '36px',
+                            justifyContent: 'center', flexWrap: 'wrap',
+                        }}>
+                            {[
+                                { emoji: '🚚', text: 'Envíos a todo el país' },
+                                { emoji: '🔒', text: 'Compra segura' },
+                                { emoji: '⭐', text: 'Garantía asegurada' },
+                            ].map(({ emoji, text }) => (
+                                <div key={text} style={{
+                                    display: 'flex', alignItems: 'center', gap: '6px',
+                                    fontSize: '0.78rem', color: 'var(--text-muted)',
+                                    background: 'rgba(255,255,255,0.04)',
+                                    borderRadius: '20px', padding: '6px 14px',
+                                    border: '1px solid rgba(255,255,255,0.06)',
+                                }}>
+                                    <span>{emoji}</span> {text}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

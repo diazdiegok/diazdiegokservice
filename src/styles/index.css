@@ -1619,7 +1619,7 @@ ol {
 
 .price-range-inputs {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: var(--space-2);
   margin-top: var(--space-2);
 }
@@ -1630,15 +1630,30 @@ ol {
   background: var(--bg-secondary);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
-  padding: 4px 10px;
-  flex: 1;
-  min-width: 0;
+  padding: 6px 12px;
+  gap: 6px;
+  transition: border-color 0.2s;
+}
+
+.price-input-wrapper:focus-within {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.12);
 }
 
 .price-input-wrapper span {
+  color: var(--primary-400);
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.price-input-label {
+  font-size: 0.7rem;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
   margin-right: 2px;
+  flex-shrink: 0;
 }
 
 .price-input-wrapper input {
@@ -1648,9 +1663,18 @@ ol {
   outline: none;
   color: var(--text-primary);
   width: 100%;
-  padding: 4px 0;
-  font-size: 0.85rem;
+  padding: 2px 0;
+  font-size: 0.9rem;
   min-width: 0;
+}
+
+.price-input-wrapper input::placeholder {
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+
+.price-range-sep {
+  display: none;
 }
 
 .search-bar input {

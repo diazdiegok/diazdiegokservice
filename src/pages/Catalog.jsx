@@ -159,21 +159,22 @@ export default function Catalog() {
                             <h3 className="filter-title">Precio</h3>
                             <div className="price-range-inputs">
                                 <div className="price-input-wrapper">
+                                    <span className="price-input-label">Mín</span>
                                     <span>$</span>
                                     <input
                                         type="number"
-                                        placeholder="Mín"
+                                        placeholder="0"
                                         value={minPrice}
                                         onChange={e => setMinPrice(e.target.value)}
                                         min="0"
                                     />
                                 </div>
-                                <span className="price-range-sep">—</span>
                                 <div className="price-input-wrapper">
+                                    <span className="price-input-label">Máx</span>
                                     <span>$</span>
                                     <input
                                         type="number"
-                                        placeholder="Máx"
+                                        placeholder="Sin límite"
                                         value={maxPrice}
                                         onChange={e => setMaxPrice(e.target.value)}
                                         min="0"
