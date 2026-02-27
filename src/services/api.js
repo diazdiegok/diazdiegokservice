@@ -15,6 +15,85 @@ async function handleResponse(res) {
     return data;
 }
 
+// Mock data for demo purposes when server is unreachable
+const MOCK_CATEGORIES = [
+    { id: 1, name: 'Teléfonos', slug: 'telefonos' },
+    { id: 2, name: 'Notebooks', slug: 'notebooks' },
+    { id: 3, name: 'Tablets', slug: 'tablets' },
+    { id: 4, name: 'Smartwatches', slug: 'smartwatches' },
+    { id: 5, name: 'Parlantes', slug: 'parlantes' },
+    { id: 6, name: 'Accesorios', slug: 'accesorios' },
+];
+
+const MOCK_PRODUCTS = [
+    {
+        id: 1,
+        name: 'iPhone 15 Pro Max',
+        description: '256GB, Titanium Natural. El iPhone más potente hasta la fecha.',
+        price: 145000000,
+        stock: 5,
+        category_name: 'Teléfonos',
+        category_slug: 'telefonos',
+        featured: true,
+        image_url: null
+    },
+    {
+        id: 2,
+        name: 'MacBook Air M2',
+        description: '13-inch, 8GB RAM, 256GB SSD. Potencia y portabilidad suprema.',
+        price: 120000000,
+        stock: 3,
+        category_name: 'Notebooks',
+        category_slug: 'notebooks',
+        featured: true,
+        image_url: null
+    },
+    {
+        id: 3,
+        name: 'Samsung Galaxy S23 Ultra',
+        description: '512GB, Phantom Black. La mejor cámara en un smartphone.',
+        price: 115000000,
+        stock: 8,
+        category_name: 'Teléfonos',
+        category_slug: 'telefonos',
+        featured: true,
+        image_url: null
+    },
+    {
+        id: 4,
+        name: 'iPad Pro M2',
+        description: '11-inch, WiFi, 128GB. La tablet definitiva para profesionales.',
+        price: 95000000,
+        stock: 4,
+        category_name: 'Tablets',
+        category_slug: 'tablets',
+        featured: false,
+        image_url: null
+    },
+    {
+        id: 5,
+        name: 'Apple Watch Series 9',
+        description: '45mm, Aluminum, Midnight. Tu compañero ideal de salud.',
+        price: 55000000,
+        stock: 12,
+        category_name: 'Smartwatches',
+        category_slug: 'smartwatches',
+        featured: true,
+        image_url: null
+    },
+    {
+        id: 6,
+        name: 'AirPods Pro (2nd Gen)',
+        description: 'Cancelación de ruido activa y audio espacial.',
+        price: 35000000,
+        stock: 20,
+        category_name: 'Accesorios',
+        category_slug: 'accesorios',
+        featured: false,
+        image_url: null
+    }
+];
+
 // Auth
 export const authAPI = {
     login: (email, password) =>
@@ -46,14 +125,38 @@ export const authAPI = {
 export const productsAPI = {
     getAll: (params = {}) => {
         const query = new URLSearchParams(params).toString();
-        return fetch(`${API_URL}/products${query ? '?' + query : ''}`, { headers: getHeaders() }).then(handleResponse);
+        return fetch(`${API_URL}/products${query ? '?' + query : ''}`, { headers: getHeaders() })
+            .then(handleResponse)
+            .catch(err => {
+                console.warn('API unreachable, using mock data:', err);
+                let filtered = [...MOCK_PRODUCTS];
+                if (params.category) filtered = filtered.filter(p => p.category_slug === params.category);
+                if (params.search) {
+                    const s = params.search.toLowerCase();
+                    filtered = filtered.filter(p => p.name.toLowerCase().includes(s) || p.description.toLowerCase().includes(s));
+                }
+                if (params.featured === 'true') filtered = filtered.filter(p => p.featured);
+                return filtered;
+            });
     },
 
     getById: (id) =>
-        fetch(`${API_URL}/products/${id}`, { headers: getHeaders() }).then(handleResponse),
+        fetch(`${API_URL}/products/${id}`, { headers: getHeaders() })
+            .then(handleResponse)
+            .catch(err => {
+                console.warn('API unreachable, using mock data:', err);
+                const prod = MOCK_PRODUCTS.find(p => p.id === parseInt(id));
+                if (!prod) throw err;
+                return prod;
+            }),
 
     getCategories: () =>
-        fetch(`${API_URL}/products/categories/all`, { headers: getHeaders() }).then(handleResponse),
+        fetch(`${API_URL}/products/categories/all`, { headers: getHeaders() })
+            .then(handleResponse)
+            .catch(err => {
+                console.warn('API unreachable, using mock data:', err);
+                return MOCK_CATEGORIES;
+            }),
 
     create: (data) =>
         fetch(`${API_URL}/products`, {
