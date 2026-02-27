@@ -108,7 +108,7 @@ export default function Home() {
                         <div className="hero-visual">
                             <div className="hero-image-container">
                                 <img
-                                    src="/logo.png"
+                                    src="logo.png"
                                     alt="DiazDiegokService Technology"
                                     className="hero-main-img"
                                     style={{ borderRadius: '50%', objectFit: 'contain' }}

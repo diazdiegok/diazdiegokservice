@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 import { AuthProvider } from './context/AuthContext';
 import { CartProvider } from './context/CartContext';
@@ -54,7 +54,7 @@ function ScrollToTop() {
 
 function App() {
   return (
-    <BrowserRouter basename="/diazdiegokservice">
+    <HashRouter>
       <ToastProvider>
         <AuthProvider>
           <CartProvider>
@@ -86,7 +86,7 @@ function App() {
           </CartProvider>
         </AuthProvider>
       </ToastProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
